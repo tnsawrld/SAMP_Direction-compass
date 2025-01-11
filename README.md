@@ -1,5 +1,5 @@
 # Penunjuk mata angin untuk SAMP
-laikssss lunarss
+mantap
 ## Preview
 ![Preview](https://github.com/user-attachments/assets/cd29b30c-97f7-46bb-84f9-212fd1f2613a)
 ## Video Preview with  Vehicle
