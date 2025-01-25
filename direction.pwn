@@ -4,7 +4,7 @@
 #include <Pawn.CMD>
 #include <sscanf2>
 
-new Text:TDirection[3];
+new PlayerText:TDirection[MAX_PLAYERS][3];
 
 main()
 {
@@ -39,7 +39,7 @@ public OnPlayerSpawn(playerid)
     //Menampilkan textdraw saat player spawn
     for(new i = 0; i < 3; i++)
     {
-        TextDrawShowForPlayer(playerid, TDirection[i]);
+        PlayerTextDrawShow(playerid, TDirection[playerid][i]);
     }
     //Untuk mengupdate direction setiap 500 milidetik
     SetTimerEx("UpdateDirection", 500, true, "i", playerid);
@@ -68,62 +68,63 @@ public UpdateDirection(playerid)
 
     //Mendapatkan arah mata angin dari koordinat angle yang telah didapatkan lalu di tampilkan ke textdraw.
     GetDirection(DirectionAngle, Directions, sizeof(Directions));
-    TextDrawSetString(TDirection[0], Directions);
+    PlayerTextDrawSetString(playerid, TDirection[0], Directions);
 
     //Mendapatkan arah mata angin dari koordinat angle yang telah didapatkan lalu di tampilkan ke textdraw.
     GetDirectionFull(DirectionAngle, DirectionsFull, sizeof(DirectionsFull));
-    TextDrawSetString(TDirection[1], DirectionsFull);
+    PlayerTextDrawSetString(playerid, TDirection[1], DirectionsFull);
 
     //Untuk mengupdate textdraw arah derajat pemain.
     new str[128];
     format(str, sizeof(str), "%.01fo", DirectionAngle);
     TextDrawSetString(TDirection[2], str);
+    PlayerTextDrawSetString(playerid, TDirection[2], str);
     return 1;
 }
 
 LoadTextdraw()
 {
-    TDirection[0] = TextDrawCreate(52.000000, 291.000000, "NW");
-    TextDrawFont(TDirection[0], 1);
-    TextDrawLetterSize(TDirection[0], 0.441666, 1.549998);
-    TextDrawTextSize(TDirection[0], 400.000000, 17.000000);
-    TextDrawSetOutline(TDirection[0], 1);
-    TextDrawSetShadow(TDirection[0], 0);
-    TextDrawAlignment(TDirection[0], 1);
-    TextDrawColor(TDirection[0], -2686721);
-    TextDrawBackgroundColor(TDirection[0], 255);
-    TextDrawBoxColor(TDirection[0], 50);
-    TextDrawUseBox(TDirection[0], 0);
-    TextDrawSetProportional(TDirection[0], 1);
-    TextDrawSetSelectable(TDirection[0], 0);
+    TDirection[playerid][0] = CreatePlayerTextDraw(playerid, 53.000000, 290.000000, "NW");
+    PlayerTextDrawFont(playerid, TDirection[playerid][0], 1);
+    PlayerTextDrawLetterSize(playerid, TDirection[playerid][0], 0.441666, 1.549998);
+    PlayerTextDrawTextSize(playerid, TDirection[playerid][0], 400.000000, 17.000000);
+    PlayerTextDrawSetOutline(playerid, TDirection[playerid][0], 1);
+    PlayerTextDrawSetShadow(playerid, TDirection[playerid][0], 0);
+    PlayerTextDrawAlignment(playerid, TDirection[playerid][0], 1);
+    PlayerTextDrawColor(playerid, TDirection[playerid][0], -2686721);
+    PlayerTextDrawBackgroundColor(playerid, TDirection[playerid][0], 255);
+    PlayerTextDrawBoxColor(playerid, TDirection[playerid][0], 50);
+    PlayerTextDrawUseBox(playerid, TDirection[playerid][0], 0);
+    PlayerTextDrawSetProportional(playerid, TDirection[playerid][0], 1);
+    PlayerTextDrawSetSelectable(playerid, TDirection[playerid][0], 0);
 
-    TDirection[1] = TextDrawCreate(53.000000, 303.000000, "Northeast");
-    TextDrawFont(TDirection[1], 1);
-    TextDrawLetterSize(TDirection[1], 0.254166, 1.199998);
-    TextDrawTextSize(TDirection[1], 400.000000, 17.000000);
-    TextDrawSetOutline(TDirection[1], 1);
-    TextDrawSetShadow(TDirection[1], 0);
-    TextDrawAlignment(TDirection[1], 1);
-    TextDrawColor(TDirection[1], -1094795521);
-    TextDrawBackgroundColor(TDirection[1], 255);
-    TextDrawBoxColor(TDirection[1], 50);
-    TextDrawUseBox(TDirection[1], 0);
-    TextDrawSetProportional(TDirection[1], 1);
-    TextDrawSetSelectable(TDirection[1], 0);
+    TDirection[playerid][1] = CreatePlayerTextDraw(playerid, 53.000000, 303.000000, "Northeast");
+    PlayerTextDrawFont(playerid, TDirection[playerid][1], 1);
+    PlayerTextDrawLetterSize(playerid, TDirection[playerid][1], 0.254166, 1.199998);
+    PlayerTextDrawTextSize(playerid, TDirection[playerid][1], 400.000000, 17.000000);
+    PlayerTextDrawSetOutline(playerid, TDirection[playerid][1], 1);
+    PlayerTextDrawSetShadow(playerid, TDirection[playerid][1], 0);
+    PlayerTextDrawAlignment(playerid, TDirection[playerid][1], 1);
+    PlayerTextDrawColor(playerid, TDirection[playerid][1], -1094795521);
+    PlayerTextDrawBackgroundColor(playerid, TDirection[playerid][1], 255);
+    PlayerTextDrawBoxColor(playerid, TDirection[playerid][1], 50);
+    PlayerTextDrawUseBox(playerid, TDirection[playerid][1], 0);
+    PlayerTextDrawSetProportional(playerid, TDirection[playerid][1], 1);
+    PlayerTextDrawSetSelectable(playerid, TDirection[playerid][1], 0);
 
-    TDirection[2] = TextDrawCreate(54.000000, 313.000000, "360o");
-    TextDrawFont(TDirection[2], 1);
-    TextDrawLetterSize(TDirection[2], 0.254166, 1.199998);
-    TextDrawTextSize(TDirection[2], 400.000000, 17.000000);
-    TextDrawSetOutline(TDirection[2], 1);
-    TextDrawSetShadow(TDirection[2], 0);
-    TextDrawAlignment(TDirection[2], 1);
-    TextDrawColor(TDirection[2], -1);
-    TextDrawBackgroundColor(TDirection[2], 255);
-    TextDrawBoxColor(TDirection[2], 50);
-    TextDrawUseBox(TDirection[2], 0);
-    TextDrawSetProportional(TDirection[2], 1);
-    TextDrawSetSelectable(TDirection[2], 0);
+    TDirection[playerid][2] = CreatePlayerTextDraw(playerid, 54.000000, 313.000000, "360o");
+    PlayerTextDrawFont(playerid, TDirection[playerid][2], 1);
+    PlayerTextDrawLetterSize(playerid, TDirection[playerid][2], 0.254166, 1.199998);
+    PlayerTextDrawTextSize(playerid, TDirection[playerid][2], 400.000000, 17.000000);
+    PlayerTextDrawSetOutline(playerid, TDirection[playerid][2], 1);
+    PlayerTextDrawSetShadow(playerid, TDirection[playerid][2], 0);
+    PlayerTextDrawAlignment(playerid, TDirection[playerid][2], 1);
+    PlayerTextDrawColor(playerid, TDirection[playerid][2], -1);
+    PlayerTextDrawBackgroundColor(playerid, TDirection[playerid][2], 255);
+    PlayerTextDrawBoxColor(playerid, TDirection[playerid][2], 50);
+    PlayerTextDrawUseBox(playerid, TDirection[playerid][2], 0);
+    PlayerTextDrawSetProportional(playerid, TDirection[playerid][2], 1);
+    PlayerTextDrawSetSelectable(playerid, TDirection[playerid][2], 0);
 }
 
 stock GetDirection(Float:angle, dir[], len)
